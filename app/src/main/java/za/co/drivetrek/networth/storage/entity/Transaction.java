@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity(tableName = "transaction")
 public class Transaction {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private int mId;
 

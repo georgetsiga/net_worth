@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.add.TransactionDetailFragment">
+
+    <TextView
+        android:id="@+id/transaction_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gutterSpaceHalf"
+        android:layout_marginTop="@dimen/gutterSpaceHalf"
+        android:text="@string/transaction_type"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/transaction_type_radio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gutterSpaceHalf"
+        android:layout_marginTop="@dimen/gutterSpaceHalf"
+        android:layout_marginEnd="@dimen/gutterSpaceHalf"
+        android:layout_marginBottom="@dimen/gutterSpaceHalf"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_type">
+
+        <RadioButton
+            android:id="@+id/credit_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/credit" />
+
+        <RadioButton
+            android:id="@+id/debit_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/debit" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/transaction_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gutterSpaceHalf"
+        android:layout_marginTop="@dimen/gutterSpaceHalf"
+        android:layout_marginEnd="@dimen/gutterSpaceHalf"
+        android:hint="@string/transaction_description"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_type_radio" />
+
+    <EditText
+        android:id="@+id/transaction_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gutterSpaceHalf"
+        android:layout_marginTop="@dimen/gutterSpaceHalf"
+        android:layout_marginEnd="@dimen/gutterSpaceHalf"
+        android:inputType="numberDecimal"
+        android:hint="@string/no_amount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
