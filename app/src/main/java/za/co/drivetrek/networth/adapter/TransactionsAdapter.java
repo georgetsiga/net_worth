@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import za.co.drivetrek.networth.R;
 import za.co.drivetrek.networth.base.TransactionSummary;
 import za.co.drivetrek.networth.storage.entity.Transaction;
+import za.co.drivetrek.networth.utils.Constants;
 import za.co.drivetrek.networth.utils.DateUtil;
 
 import java.util.List;
@@ -41,18 +42,17 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
     public void onBindViewHolder(@NonNull TransactionsViewHolder holder, int position) {
         if (!mTransactions.isEmpty()) {
             Transaction transaction = mTransactions.get(position);
-            int walletColor =
-                    transaction.getType().equals(TransactionSummary.CREDIT) ? R.color.colorRed : R.color.colorGreen;
 
-            holder.wallet.setColorFilter(ContextCompat.getColor(mContext, walletColor),
-                    android.graphics.PorterDuff.Mode.SRC_IN);
+            int creditIcon =
+                    transaction.getType().equals(TransactionSummary.CREDIT)
+                            ? R.drawable.ic_miles_dark_gray : R.drawable.ic_miles_d;
+            holder.wallet.setImageResource(creditIcon);
 
             holder.amount.setText(mContext.getString(R.string.amount, String.valueOf(transaction.getAmount())));
             holder.transactionDate.setText(DateUtil.getStringDate(transaction.getTransactionDate()));
             holder.description.setText(transaction.getDescription());
         } else {
-            holder.wallet.setColorFilter(ContextCompat.getColor(mContext, R.color.colorRed),
-                    android.graphics.PorterDuff.Mode.SRC_IN);
+            holder.wallet.setImageResource(R.drawable.ic_miles_dark_gray);
         }
     }
 

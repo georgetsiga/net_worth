@@ -51,19 +51,16 @@ public class TransactionSummaryWidget extends LinearLayout {
                     .setText(context.getString(R.string.amount, String.valueOf(transactionSummary.getExpenses())));
             balanceAmount.setText(context.getString(R.string.amount, String.valueOf(transactionSummary.getBalance())));
 
-            int creditCardColor =
-                    transactionSummary.getBalance() <= 0
-                            ? R.color.colorRed : R.color.colorGreen;
-
-                creditCardImage.setColorFilter(ContextCompat.getColor(context, creditCardColor),
-                        android.graphics.PorterDuff.Mode.SRC_IN);
+            int creditIcon =
+                    transactionSummary.getIncome() <= transactionSummary.getExpenses()
+                            ? R.drawable.ic_miles_dark_gray : R.drawable.ic_miles_d;
+            creditCardImage.setImageResource(creditIcon);
         } else {
             incomeAmount.setText(context.getString(R.string.no_amount));
             expensesAmount.setText(context.getString(R.string.no_amount));
             balanceAmount.setText(context.getString(R.string.no_amount));
 
-            creditCardImage.setColorFilter(ContextCompat.getColor(context, R.color.colorRed),
-                    android.graphics.PorterDuff.Mode.SRC_IN);
+            creditCardImage.setImageResource(R.drawable.ic_miles_dark_gray);
         }
     }
 }

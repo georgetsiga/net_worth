@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_delete">Verwyder</string>
+    <string name="action_settings">Instellings</string>
+    <string name="action_submit">Indien</string>
+    <string name="available_balance">Beskikbare balans</string>
+    <string name="app_name">" Netto waarde"</string>
+    <string name="button_process">Proses</string>
+    <string name="credit">Krediet</string>
+    <string name="credit_card_image">Kredietkaart</string>
+    <string name="debit">Debiet-</string>
+    <string name="expenses">Uitgawes</string>
+    <string name="hello_blank_fragment">Hallo leë fragment</string>
+    <string name="income">" Inkomste"</string>
+    <string name="wallet_icon">Beursie</string>
+    <string name="turn_on_off">Skakel hierdie opsie aan of af</string>
+    <string name="transaction_type">" Soort transaksie"</string>
+    <string name="transaction_summary">Transaksie opsomming</string>
+    <string name="transaction_records">Transaksierekords</string>
+    <string name="transaction_description">Transaksie beskrywing</string>
+    <string name="nav_header_desc">Navigasiekop</string>
+    <string name="no_transaction_records">Geen transaksie rekords nie</string>
+    <string name="menu_transactions">Transaksies</string>
+    <string name="day_mode">Dagmodus</string>
+    <string name="night_mode">Nagmodus</string>
+</resources>

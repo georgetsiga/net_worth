@@ -11,18 +11,17 @@
         android:id="@+id/transaction_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/gutterSpaceHalf"
-        android:layout_marginEnd="@dimen/gutterSpaceHalf"
-        android:layout_marginBottom="@dimen/gutterSpaceHalf"
-        app:layout_constraintBottom_toTopOf="@+id/transaction_recyclerview"
+        android:layout_margin="@dimen/gutterSpace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="8dp"
+        app:cardCornerRadius="10dp">
 
         <za.co.drivetrek.networth.ui.widget.TransactionSummaryWidget
             android:id="@+id/transaction_widget"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -37,6 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transaction_card"
         app:layout_constraintBottom_toTopOf="@+id/transaction_recyclerview"/>
+
 
     <TextView
         android:id="@+id/no_transaction_records"

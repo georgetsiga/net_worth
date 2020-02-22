@@ -45,5 +45,6 @@
         android:id="@+id/nav_transact"
         android:name="za.co.drivetrek.networth.ui.add.TransactionDetailFragment"
         android:label="@string/transact"
-        tools:layout="@layout/transaction_detail_fragment"/>
+        tools:layout="@layout/transaction_detail_fragment">
+    </fragment>
 </navigation>

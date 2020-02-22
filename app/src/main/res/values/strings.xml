@@ -1,27 +1,27 @@
 <resources>
     <string name="app_name">Net Worth</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home" translatable="false">Home</string>
     <string name="menu_transactions">Transactions</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
-    <string name="credit_card_image">Credit Card image</string>
+    <string name="menu_gallery" translatable="false">Gallery</string>
+    <string name="menu_slideshow" translatable="false">Slideshow</string>
+    <string name="menu_tools" translatable="false">Tools</string>
+    <string name="menu_share" translatable="false">Share</string>
+    <string name="menu_send" translatable="false">Send</string>
+    <string name="credit_card_image">Credit Card</string>
     <string name="income">Income</string>
     <string name="expenses">Expenses</string>
     <string name="available_balance">Available balance</string>
 
-    <string name="amount">R%1$s</string>
-    <string name="no_amount">R0</string>
-    <string name="wallet_icon">Wallet icon</string>
+    <string name="amount" translatable="false">R%1$s</string>
+    <string name="no_amount" translatable="false">R0</string>
+    <string name="wallet_icon">Wallet</string>
     <string name="transaction_summary">Transaction Summary</string>
     <string name="transaction_type">Transaction Type</string>
     <string name="transaction_records">Transaction Records</string>
@@ -31,5 +31,19 @@
     <string name="transaction_description">Transaction Description</string>
     <string name="action_submit">Submit</string>
     <string name="action_delete">Delete</string>
-    <string name="transact">Transact</string>
+    <string name="transact" translatable="false">Transact</string>
+    <string name="button_process">Process</string>
+    <string name="turn_on_off">Turn this option on or off</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="day_mode">Day Mode</string>
+
+    <!--Pref Keys -->
+    <string name="pref_key_network_type" translatable="false">network_type</string>
+    <string name="pref_key_device_idle" translatable="false">device_idle</string>
+    <string name="pref_key_device_charging" translatable="false">device_charging</string>
+    <string name="pref_key_override_deadline" translatable="false">override_deadline</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

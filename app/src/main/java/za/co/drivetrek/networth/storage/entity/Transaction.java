@@ -70,4 +70,10 @@ public class Transaction {
     public Date getTransactionDate() {
         return mTransactionDate;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.mType + ": " + mDescription + "(R " + mAmount + "). Processed";
+    }
 }
