@@ -5,10 +5,7 @@ import android.app.job.JobService;
 import android.content.IntentFilter;
 import android.os.PersistableBundle;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import za.co.drivetrek.networth.notifications.utils.Notification;
-import za.co.drivetrek.networth.storage.viewmodel.TransactionViewModel;
 import za.co.drivetrek.networth.utils.Constants;
 
 import static za.co.drivetrek.networth.utils.Constants.ACTION_UPDATE_NOTIFICATION;

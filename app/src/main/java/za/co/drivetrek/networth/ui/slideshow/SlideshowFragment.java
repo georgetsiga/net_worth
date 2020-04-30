@@ -12,22 +12,37 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import za.co.drivetrek.networth.R;
 
-public class SlideshowFragment extends Fragment {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class SlideshowFragment extends Fragment implements OnMapReadyCallback {
 
     private SlideshowViewModel slideshowViewModel;
+    private GoogleMap mMap;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
                 ViewModelProviders.of(this).get(SlideshowViewModel.class);
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         return root;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        LatLng Randburg = new LatLng(-26.1438, 27.9952);
+        LatLng HarareMarker = new LatLng(-17.8252, 31.0335);
+        mMap.addMarker(new
+                MarkerOptions().position(Randburg).title("Randburg"));
+        mMap.addMarker(new
+                MarkerOptions().position(HarareMarker).title("Harare"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(Randburg));
     }
 }

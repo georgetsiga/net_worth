@@ -16,4 +16,6 @@ public class Constants {
     public static final String CONTENT_TITLE_EXTRA = "CONTENT_TITLE_EXTRA";
     public static final String CONTENT_TEXT_EXTRA = "CONTENT_TEXT_EXTRA";
     public static final String TARGET_CLASS_EXTRA = "CONTENT_TEXT_EXTRA";
+
+    public static final String TRANSACTION_DETAILS = "Transaction Details";
 }

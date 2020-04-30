@@ -46,9 +46,9 @@ public class TransactionSummaryWidget extends LinearLayout {
 
     public void display(TransactionSummary transactionSummary, Context context) {
         if (transactionSummary != null) {
-            incomeAmount.setText(context.getString(R.string.amount, String.valueOf(transactionSummary.getIncome())));
+            incomeAmount.setText(formatCurrency(transactionSummary.getIncome(), context));
            expensesAmount
-                    .setText(context.getString(R.string.amount, String.valueOf(transactionSummary.getExpenses())));
+                    .setText(formatCurrency(transactionSummary.getExpenses(), context));
             balanceAmount.setText(context.getString(R.string.amount, String.valueOf(transactionSummary.getBalance())));
 
             int creditIcon =
@@ -62,5 +62,9 @@ public class TransactionSummaryWidget extends LinearLayout {
 
             creditCardImage.setImageResource(R.drawable.ic_miles_dark_gray);
         }
+    }
+
+    private String formatCurrency(Double amount, Context context){
+        return context.getString(R.string.amount, String.valueOf(amount));
     }
 }

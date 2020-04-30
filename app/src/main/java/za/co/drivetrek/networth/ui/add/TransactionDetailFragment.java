@@ -4,16 +4,13 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -24,6 +21,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.preference.PreferenceManager;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,23 +35,28 @@ import za.co.drivetrek.networth.storage.entity.Transaction;
 import za.co.drivetrek.networth.storage.viewmodel.TransactionViewModel;
 import za.co.drivetrek.networth.ui.SettingsActivity;
 import za.co.drivetrek.networth.utils.Constants;
+import za.co.drivetrek.networth.workmanager.NotificationWorker;
 
 import java.util.Date;
 import java.util.Objects;
 
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
-import static za.co.drivetrek.networth.utils.Constants.ACTION_UPDATE_NOTIFICATION;
 
 public class TransactionDetailFragment extends Fragment {
 
     private TransactionViewModel transactionViewModel;
     private Notification mNotification;
     private JobScheduler mScheduler;
+    private WorkManager mWorkManager;
     private NavController mNavController;
     @BindView(R.id.transaction_type_radio) RadioGroup transactionTypeRadio;
     @BindView(R.id.transaction_description) EditText descriptionText;
     @BindView(R.id.transaction_amount) EditText amountText;
     @BindView(R.id.process_button) Button process;
+    private boolean mDeviceCharging;
+    private boolean mDeviceIdle;
+    private String mNetworkType;
+    private int mOverrideDeadline;
 
     public static TransactionDetailFragment newInstance() {
         return new TransactionDetailFragment();
@@ -61,9 +66,6 @@ public class TransactionDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        /*mNotification = new Notification(Objects.requireNonNull(getContext()));
-        mNotification.createNotificationChannel();
-        getContext().registerReceiver(mNotification.getReceiver(), new IntentFilter(ACTION_UPDATE_NOTIFICATION));*/
         mNavController =
                 Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment);
     }
@@ -135,34 +137,55 @@ public class TransactionDetailFragment extends Fragment {
 
             transactionViewModel.insert(transaction);
             String contentText = transaction.toString();
-            scheduleNotification(contentText);
+            getSharedPreferenceSettings();
+            if (tranType.equals(TransactionSummary.CREDIT)){
+                jobSchedulerNotification(contentText);
+            }else {
+                workManagerNotification(contentText);
+            }
+
         }
     }
 
-    private void scheduleNotification(String contentText){
+    private void workManagerNotification(String contentText) {
+        mWorkManager = WorkManager.getInstance(getActivity().getApplication());
+        Data.Builder builder = new Data.Builder();
+        builder.putString(Constants.CONTENT_TEXT_EXTRA, contentText);
+        builder.putString(Constants.CONTENT_TITLE_EXTRA, "Worker -> " + Constants.TRANSACTION_DETAILS);
+        Data data = builder.build();
+
+        OneTimeWorkRequest notificationRequest =
+                new OneTimeWorkRequest.Builder(NotificationWorker.class)
+                .setInputData(data)
+                .build();
+
+        mWorkManager.enqueue(notificationRequest);
+    }
+
+    private void getSharedPreferenceSettings(){
+        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        mDeviceCharging = defaultSharedPreferences.
+                getBoolean(getContext().getString(R.string.pref_key_device_charging), false);
+        mDeviceIdle = defaultSharedPreferences.
+                getBoolean(getContext().getString(R.string.pref_key_device_idle), false);
+
+        mNetworkType = defaultSharedPreferences.
+                getString(getContext().getString(R.string.pref_key_network_type), "None");
+
+        mOverrideDeadline = defaultSharedPreferences.
+                getInt(getContext().getString(R.string.pref_key_override_deadline), 0);
+    }
+
+    private void jobSchedulerNotification(String contentText){
         mScheduler = (JobScheduler) getActivity().getSystemService(JOB_SCHEDULER_SERVICE);
         PersistableBundle extras = new PersistableBundle();
         extras.putString(Constants.CONTENT_TEXT_EXTRA, contentText);
-        extras.putString(Constants.CONTENT_TITLE_EXTRA, "Transaction Details");
-        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        boolean deviceCharging =
-                defaultSharedPreferences.
-                        getBoolean(getContext().getString(R.string.pref_key_device_charging), false);
-        boolean deviceIdle =
-                defaultSharedPreferences.
-                        getBoolean(getContext().getString(R.string.pref_key_device_idle), false);
-
-        String networkType =
-                defaultSharedPreferences.
-                        getString(getContext().getString(R.string.pref_key_network_type), "None");
-
-        int overrideDeadline = defaultSharedPreferences.
-                getInt(getContext().getString(R.string.pref_key_override_deadline), 0);
+        extras.putString(Constants.CONTENT_TITLE_EXTRA, "Scheduler -> " + Constants.TRANSACTION_DETAILS);
 
 
         int selectedNetworkOption = JobInfo.NETWORK_TYPE_NONE;
-        switch (networkType){
+        switch (mNetworkType){
             case "1":
                 selectedNetworkOption = JobInfo.NETWORK_TYPE_NONE;
                 break;
@@ -182,9 +205,6 @@ public class TransactionDetailFragment extends Fragment {
 
         JobInfo jobInfo = builder.build();
         mScheduler.schedule(jobInfo);
-
-
-        //mNotification.sendNotification(TransactionDetailFragment.class, "Transaction Details", contentText);
     }
 
     private void cancelNotification(){
